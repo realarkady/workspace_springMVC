@@ -1,5 +1,7 @@
 package com.howtodoinjava.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howtodoinjava.entity.EmployeeEntity;
 import com.howtodoinjava.service.EmployeeManager;
@@ -44,5 +47,11 @@ public class EditEmployeeController {
 
 	public void setEmployeeManager(EmployeeManager employeeManager) {
 		this.employeeManager = employeeManager;
+	}
+	
+	@RequestMapping(value="/getJson", method=RequestMethod.GET)
+	public @ResponseBody EmployeeEntity getJson() {
+		List<EmployeeEntity> employees = employeeManager.getAllEmployees();
+		return employees.get(0);
 	}
 }
