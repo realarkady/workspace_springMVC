@@ -51,6 +51,21 @@ public class LoggingAspect {
 		System.out.println("@AfterThrowing name: " + name);
 	}
 	
+	@Around("@annotation(org.koushik.javabrains.aop.aspect.Loggable)")
+	public Object LoggingAdviceAroundAnnotation(ProceedingJoinPoint proceedingJoinPoint){
+		Object returningValue = null;
+		
+		try {
+			System.out.println("@Around Loggable before: ");
+			returningValue = proceedingJoinPoint.proceed();
+			System.out.println("@Around Loggable after returning: ");
+		} catch (Throwable e) {
+			System.out.println("@Around Loggable after throwing: ");
+		}
+		System.out.println("@Around Loggable after finally: ");
+		return returningValue;
+	}
+	/*
 	@Around("allGetters()")
 	public Object LoggingAdviceAroundAllGetters(ProceedingJoinPoint proceedingJoinPoint){
 		Object returningValue = null;
@@ -65,7 +80,7 @@ public class LoggingAspect {
 		System.out.println("@Around after finally: ");
 		return returningValue;
 	}
-	
+	*/
 	@Pointcut("execution(public * get*())")
 	public void allGetters(){}
 	
